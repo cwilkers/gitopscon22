@@ -1,0 +1,18 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  annotations:
+    kubevirt.ui/provider: fedora
+  name: bookinfo-rootdisk
+spec:
+  pvc:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 33Gi
+    volumeMode: Block
+    storageClassName: ocs-external-storagecluster-ceph-rbd
+  source:
+    http:
+      url: http://installhost.example.com:8080/bookinfo-rootdisk.raw

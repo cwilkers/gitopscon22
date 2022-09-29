@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookinfo-dev
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: bookinfo-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: overlays/dev
+    repoURL: https://github.com/cwilkers/gitopscon22
+    targetRevision: dev
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - Replace=true
+

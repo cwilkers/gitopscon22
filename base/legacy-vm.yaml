@@ -1,0 +1,74 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+  labels:
+    app: bookinfo-legacy
+  name: bookinfo-legacy
+spec:
+  running: true
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/os: fedora
+        vm.kubevirt.io/workload: server
+      labels:
+        kubevirt.io/domain: bookinfo-legacy
+        vm.kubevirt.io/name: bookinfo-legacy
+        app: bookinfo-legacy
+    spec:
+      accessCredentials:
+      - sshPublicKey:
+          propagationMethod:
+            configDrive: {}
+          source:
+            secret:
+              secretName: authorizedsshkeys-bookinfo-legacy
+      domain:
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+          - bootOrder: 1
+            disk:
+              bus: virtio
+            name: rootdisk
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
+          interfaces:
+          - masquerade: {}
+            name: default
+          networkInterfaceMultiqueue: true
+          rng: {}
+        features:
+          acpi: {}
+          smm:
+            enabled: true
+        firmware:
+          bootloader:
+            efi: {}
+        machine:
+          type: pc-q35-rhel8.6.0
+        resources:
+          requests:
+            memory: 1Gi
+      evictionStrategy: LiveMigrate
+      hostname: bookinfo-legacy
+      networks:
+      - name: default
+        pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+      - dataVolume:
+          name: bookinfo-rootdisk
+        name: rootdisk
+      - cloudInitConfigDrive:
+          userData: |-
+            #cloud-config
+            user: fedora
+            password: sy3m-yukg-svdj
+            chpasswd: { expire: False }
+        name: cloudinitdisk
