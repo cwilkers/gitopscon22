@@ -6,3 +6,4 @@ resources:
 - legacy-vm.yaml
 - productpage-route.yaml
 - bookinfo-services.yaml
+- productpage.yaml 
