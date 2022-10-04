@@ -7,3 +7,4 @@ resources:
 - productpage-route.yaml
 - bookinfo-services.yaml
 - productpage.yaml 
+- details.yaml
