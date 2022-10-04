@@ -9,3 +9,4 @@ resources:
 - productpage.yaml 
 - details.yaml
 - reviews.yaml
+- ratings.yaml
