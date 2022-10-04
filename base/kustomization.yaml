@@ -8,3 +8,4 @@ resources:
 - bookinfo-services.yaml
 - productpage.yaml 
 - details.yaml
+- reviews.yaml
